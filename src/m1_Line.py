@@ -3,8 +3,8 @@ A simple   Line   class.
 NOTE: This is NOT rosegraphics -- it is your OWN Line class.
 
 Authors: David Mutchler, Dave Fisher, Valerie Galluzzi, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Dave Fisher.
+"""  # TO DO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import math
 import m1t_test_Line as m1t
@@ -15,7 +15,7 @@ import m1t_test_Line as m1t
 ########################################################################
 
 # ----------------------------------------------------------------------
-# TODO: 2. With your instructor, READ THE INSTRUCTIONS
+# TO DO: 2. With your instructor, READ THE INSTRUCTIONS
 #   in file  m0_INSTRUCTIONS.txt, asking questions as needed.
 #   Once you understand the instructions, mark this TO DO as DONE.
 #
@@ -217,7 +217,7 @@ class Line(object):
           :type end:   Point
         """
         # --------------------------------------------------------------
-        # TODO: 3.
+        # TO DO: 3.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -225,6 +225,11 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+        self.start = start.clone()
+        self.end = end.clone()
+        self.num_clones = 0
+        self.org_start = start.clone()
+        self.org_end = end.clone()
 
     def __repr__(self):
         """
@@ -249,7 +254,7 @@ class Line(object):
             print(line)
 
         Type hints:
-          :rtype str
+          :rtype: str
         """
         # --------------------------------------------------------------
         # We have already implemented this  __repr__  function for you.
@@ -288,7 +293,7 @@ class Line(object):
 
         Type hints:
           :type  line2: Line
-          :rtype bool
+          :rtype: bool
         """
         # --------------------------------------------------------------
         # We have already implemented this  __eq__  function for you.
@@ -323,10 +328,10 @@ class Line(object):
             print(line1 == line2)  # Should now print: False
 
         Type hints:
-          :rtype Line
+          :rtype: Line
         """
         # --------------------------------------------------------------
-        # TODO: 4.
+        # TO DO: 4.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -334,6 +339,8 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+        self.num_clones += 1
+        return Line(self.start, self.end)
 
     def reverse(self):
         """
@@ -359,7 +366,7 @@ class Line(object):
             print(line1 == line2)    # Should now print: True
         """
         # --------------------------------------------------------------
-        # TODO: 5.
+        # TO DO: 5.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -367,6 +374,9 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+        temp = self.start
+        self.start = self.end
+        self.end = temp
 
     def slope(self):
         """
@@ -392,10 +402,10 @@ class Line(object):
             print(line2.slope() == 'inf')   # Should print False
 
         Type hints:
-          :rtype float
+          :rtype: float
         """
         # --------------------------------------------------------------
-        # TODO: 6.
+        # TO DO: 6.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -403,6 +413,11 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+        if self.start.x == self.end.x:
+            return math.inf
+        delta_y = self.end.y - self.start.y
+        delta_x = self.end.x - self.start.x
+        return delta_y / delta_x
 
     def length(self):
         """
@@ -425,10 +440,10 @@ class Line(object):
             print(line2.length())  # Should print about 5.0
 
         Type hints:
-          :rtype float
+          :rtype: float
         """
         # --------------------------------------------------------------
-        # TODO: 7.
+        # TO DO: 7.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -436,6 +451,7 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+        return self.start.distance_from(self.end)
 
     def get_number_of_clones(self):
         """
@@ -465,10 +481,10 @@ class Line(object):
             0    [since there are no      line5.clone()  statements]
 
         Type hints:
-          :rtype int:
+          :rtype: int:
         """
         # --------------------------------------------------------------
-        # TODO: 8.
+        # TO DO: 8.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -476,6 +492,7 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+        return self.num_clones
 
     def line_plus(self, other_line):
         """
@@ -499,10 +516,10 @@ class Line(object):
 
         Type hints:
           :type  other_line: Line
-          :rtype Line:
+          :rtype: Line:
         """
         # --------------------------------------------------------------
-        # TODO: 9.
+        # TO DO: 9.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -510,6 +527,7 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+        return Line(self.start.plus(other_line.start), self.end.plus(other_line.end))
 
     def line_minus(self, other_line):
         """
@@ -533,10 +551,10 @@ class Line(object):
 
         Type hints:
           :type  other_line: Line
-          :rtype Line:
+          :rtype: Line:
         """
         # --------------------------------------------------------------
-        # TODO: 10.
+        # TO DO: 10.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -544,6 +562,7 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+        return Line(self.start.minus(other_line.start), self.end.minus(other_line.end))
 
     def midpoint(self):
         """
@@ -560,10 +579,10 @@ class Line(object):
             print(line1.midpoint())  # Should print: Point(6, 15)
 
         Type hints:
-          :rtype Point
+          :rtype: Point
         """
         # --------------------------------------------------------------
-        # TODO: 11.
+        # TO DO: 11.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -571,6 +590,7 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+        return self.start.halfway_to(self.end)
 
     def is_parallel(self, line2):
         """
@@ -596,10 +616,10 @@ class Line(object):
 
         Type hints:
           :type  line2: Line
-          :rtype bool
+          :rtype: bool
         """
         # --------------------------------------------------------------
-        # TODO: 12.
+        # TO DO: 12.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -633,6 +653,15 @@ class Line(object):
         # and (usually) adequate to distinguish numbers that really
         # are different from each other.
         ################################################################
+        my_slope = self.slope()
+        line2_slope = line2.slope()
+        # print(my_slope, line2_slope)
+        # print(round(my_slope, 12), round(line2_slope, 12))
+        if my_slope == math.inf and line2_slope == math.inf:
+            return True
+        elif my_slope == math.inf or line2_slope == math.inf:
+            return False
+        return round(my_slope, 12) == round(line2_slope, 12)
 
     def reset(self):
         """
@@ -664,7 +693,7 @@ class Line(object):
             print(line2)  # Should print: Line[(0, 1), (10, 20)]
         """
         # --------------------------------------------------------------
-        # TODO: 13.
+        # TO DO: 13.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -672,6 +701,8 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # --------------------------------------------------------------
+        self.start = self.org_start.clone()
+        self.end = self.org_end.clone()
 
 
 ########################################################################
