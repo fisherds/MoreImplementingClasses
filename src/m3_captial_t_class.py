@@ -9,9 +9,7 @@ import rosegraphics as rg
 
 
 def main():
-    """
-
-    """
+    """ Calls the test functions. As you implement CapitalT method uncomment the appropriate tests. """
     run_test_simple_t()
     run_test_set_colors()
     run_test_move_by()
@@ -19,18 +17,29 @@ def main():
 
 
 def run_test_simple_t():
+    """ Tests for the __init__ method and attach_to method. See the simple_t PDF for expected output. """
+    print()
+    print('--------------------------------------------------')
+    print('Testing    __init__    and    attach_to ')
+    print('--------------------------------------------------')
     window = rg.RoseWindow(600, 400, 'Test 1 - Simple Ts')
     t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
+    print("Expected: Point(250.0, 40.0) Point(350.0, 60.0)")
+    print("Actual:  ", t1.h_rect.get_upper_left_corner(), t1.h_rect.get_lower_right_corner())
+    print("Expected: Point(290.0, 40.0) Point(310.0, 240.0)")
+    print("Actual:  ", t1.v_rect.get_upper_left_corner(), t1.v_rect.get_lower_right_corner())
     t1.attach_to(window)
     t2 = CapitalT(rg.Point(150, 150), 100, 150, 40)
     t2.attach_to(window)
     t3 = CapitalT(rg.Point(450, 150), 10, 15, 4)
     t3.attach_to(window)
     window.render()
+    print("See graphics window and compare to the simple_t PDF")
     window.close_on_mouse_click()
 
 
 def run_test_set_colors():
+    """ Tests for the set_colors method.  See the set_colors PDF for expected output. """
     window = rg.RoseWindow(600, 400, 'Test 2 - Colorful Ts')
     t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
     t1.set_colors('red', 'magenta')
@@ -46,6 +55,7 @@ def run_test_set_colors():
 
 
 def run_test_move_by():
+    """ Tests for the move_by method.  See the move_by PDF for expected output. """
     window = rg.RoseWindow(600, 400, 'Test 3 - Moving T')
     little_red_t = CapitalT(rg.Point(300, 50), 60, 80, 5)
     little_red_t.set_colors('red', 'gray')
@@ -62,6 +72,7 @@ def run_test_move_by():
 
 
 def run_test_clone():
+    """ Tests for the clone method.  See the clone PDF for expected output. """
     window = rg.RoseWindow(650, 400, 'Test 4 - Cloning Ts')
     first_t = CapitalT(rg.Point(75, 50), 80, 80, 40)
     first_t.set_colors('blue', 'cyan')
@@ -77,70 +88,52 @@ def run_test_clone():
     window.close_on_mouse_click()
 
 
-# ----------------------------------------------------------------------
-# TODO: 2. Implement a class called   Cross   that has a constructor and
-#   two methods, as described below.  Your finished Cross class should
-#   cause the code above to display the expected output.
-#
-# Constructor
-#     What comes in:
-#        -- self
-#        -- a string for the name of the baby
-#     What goes out:  Nothing (i.e., None).
-#     Side effects:
-#        -- Sets instance variables as needed
-#        -- Prints 'Hello baby <your baby's name>!'
-#
-# feed_baby
-#     What comes in:
-#        -- self
-#     What goes out:  Nothing (i.e., None).
-#     Side effects:
-#        -- Prints 'Thank you for feeding baby <your baby's name>.'
-#        -- Modifies instance variables if needed
-#
-# hour_passes
-#     What comes in:
-#        -- self
-#     What goes out:  Nothing (i.e., None).
-#     Side effects:
-#      -- If it is the first time this function has been called since Baby was created or fed
-# 	       -- Prints 'Baby <your baby's name> is sleeping.'
-#      -- If it is the second time this function has been called since baby was created or fed
-# 	       -- Prints 'Baby <your baby's name> is awake.  Time for food.'
-#      -- If it is the third (or more) time this function has been called since baby was created or fed
-# 	       -- Prints 'Baby <your baby's name> is CRYING uncontrollably!  Feed the Baby!'
-#
-# Notice that the baby is never printed, so you are not required to make
-#     a __repr__ method.  Each method call above simply does a print as
-#     a side effect.
-# ----------------------------------------------------------------------
+########################################################################
+# The   CapitalT   class (and its methods) begins here.
+########################################################################
 
-########################################################################
-# The   Baby   class (and its methods) should begins here.
-# Here is a reminder for the syntax to create a new class.
-#
-#      class NameOfClass(object):
-#          """ Brief description of what objects of the class 'are'. """
-#
-########################################################################
 
 class CapitalT(object):
-    """ Manages a CapitalT graphics object. """
+    """ Manages a CapitalT graphics object which is made up of two rectangles. """
 
     def __init__(self, intersection_center, width, height, letter_thickness):
         """
         What comes in:
            -- self
            -- an rg.Point for the intersection center of the CapitalT
-              -- This point is the center of the horizontal rectangle
-                 and the top center of the vertical rectangle.
-           -- a number for the width of the CapitalT
-           -- a number for the height of the CapitalT
-           -- a number for the thickness of each rectangle (bar thickness)
+              -- This point is also center of the horizontal rectangle.
+           -- a int for the width of the CapitalT (the width of the horizontal rectangle)
+           -- a int for the height of the CapitalT (the height of the vertical rectangle)
+           -- a int for the thickness of each rectangle (the letter's thickness)
         What goes out:  Nothing (i.e., None).
-        Side effects:
-           -- Sets instance variables as needed"""
+        Side effects: Sets two instance variables named:
+          -- h_rect  (to represent the horizontal rectangle in the T, the top bar)
+          -- v_rect  (to represent the vertical rectangle in the T, the | part of the T)
+             See the dimensions PDF for the exact placement of the rectangles in the T.
+        Each rectangle is an rg.Rectangle. Unlike prior modules you are NOT
+            allowed to make any other instance variable. You may only use
+            exactly these two and figure out how to do the problem with ONLY
+            those two instance variables saving the state of the object.
+
+        Example:
+            t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
+                -- t1.h_rect would have an upper left corner of (250, 40)
+                -- t1.h_rect would have an lower right corner of (350, 60)
+                -- t1.v_rect would have an upper left corner of (290, 40)
+                -- t1.v_rect would have an lower right corner of (310, 240)
+
+        Type hints:
+          :type intersection_center: rg.Point
+          :type width:   int
+          :type height:   int
+          :type letter_thickness:   int
+        """
+        # --------------------------------------------------------------
+        # TODO: 3.
+        #   READ the above specification, including the Example.
+        #   Implement this method
+        #   Note: you will need to also implement attach_to before testing
+        # --------------------------------------------------------------
         horz_c1_x =  intersection_center.x - width / 2
         horz_c1_y =  intersection_center.y - letter_thickness / 2
         horz_c1 = rg.Point(horz_c1_x, horz_c1_y)
@@ -157,28 +150,130 @@ class CapitalT(object):
         vert_c2_y =  vert_c1_y + height
         vert_c2 = rg.Point(vert_c2_x, vert_c2_y)
 
-        self.horz_rect = rg.Rectangle(horz_c1, horz_c2)
-        self.vert_rect = rg.Rectangle(vert_c1, vert_c2)
+        self.h_rect = rg.Rectangle(horz_c1, horz_c2)
+        self.v_rect = rg.Rectangle(vert_c1, vert_c2)
 
     def attach_to(self, window):
-        self.vert_rect.attach_to(window)
-        self.horz_rect.attach_to(window)
+        """
+        What comes in:
+           -- self
+           -- an rg.RoseWindow
+        What goes out:  Nothing (i.e., None).
+        Side effects:
+          -- Attaches both instance rectangles to the given window.
+          -- Hint: Attach h_rect second to make it draw in front of v_rect
 
-    def move_by(self, dx, dy):
-        self.horz_rect.move_by(dx, dy)
-        self.vert_rect.move_by(dx, dy)
+        Example:
+            window = rg.RoseWindow()
+            t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
+            t1.attach_to(window)
 
-    def clone(self):
-        cloned_t = CapitalT(self.horz_rect.get_center(), self.horz_rect.get_width(),
-                            self.vert_rect.get_height(), self.vert_rect.get_width())
-        cloned_t.set_colors(self.horz_rect.fill_color, self.horz_rect.outline_color)
-        return cloned_t
+        Type hints:
+          :type window: rg.RoseWindow
+        """
+        # --------------------------------------------------------------
+        # TODO: 4.
+        #   READ the above specification, including the Example.
+        #   Implement and test this method by looking at the console and
+        #     the graphics window (compare it to simple_t.pdf)
+        # --------------------------------------------------------------
+        self.v_rect.attach_to(window)
+        self.h_rect.attach_to(window)
 
     def set_colors(self, fill_color, outline_color):
-        self.horz_rect.outline_color = outline_color
-        self.horz_rect.fill_color = fill_color
-        self.vert_rect.outline_color = outline_color
-        self.vert_rect.fill_color = fill_color
+        """
+        What comes in:
+          -- self
+          -- a string that represents a valid rosegraphics color
+          -- a string that represents a valid rosegraphics color
+        What goes out:  Nothing (i.e., None).
+        Side effects:
+          -- sets the fill_color of both rectangles to the given fill color
+          -- sets the outline_color of both rectangles to the given outline color
+
+        Example:
+            window = rg.RoseWindow()
+            t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
+            t1.set_color('red', 'blue')
+
+        Type hints:
+          :type fill_color: str
+          :type outline_color: str
+        """
+        # --------------------------------------------------------------
+        # TODO: 5.
+        #   READ the above specification, including the Example.
+        #   Implement and test this method by uncommenting the appropriate
+        #     run_test method in main. Compare the graphics window to
+        #     set_colors.pdf.
+        # --------------------------------------------------------------
+        self.h_rect.outline_color = outline_color
+        self.h_rect.fill_color = fill_color
+        self.v_rect.outline_color = outline_color
+        self.v_rect.fill_color = fill_color
+
+    def move_by(self, dx, dy):
+        """
+        What comes in:
+           -- self
+           -- an int amount to move in the x direction
+           -- an int amount to move in the y direction
+        What goes out:  Nothing (i.e., None).
+        Side effects:
+          -- Moves both h_rect and v_rect the specified dx and dy amounts.
+
+        Example:
+            window = rg.RoseWindow()
+            t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
+            t1.attach_to(window)
+            window.render(0.5)
+            t1.move_by(100, 200) # Moves the T 100 pixels right and 200 down.
+            window.render()  # necessary to see the change
+
+        Type hints:
+          :type window: rg.RoseWindow
+        """
+        # --------------------------------------------------------------
+        # TODO: 6.
+        #   READ the above specification, including the Example.
+        #   Implement and test this method by uncommenting the appropriate
+        #     run_test method in main. Compare the graphics window to
+        #     move_by.pdf. Note: the pdf shows the different locations
+        #     that the T moves through, but there is only 1 T at any moment.
+        # --------------------------------------------------------------
+        self.h_rect.move_by(dx, dy)
+        self.v_rect.move_by(dx, dy)
+
+    def clone(self):
+        """
+        What comes in:
+          -- self
+        What goes out:
+          -- Returns a new CapitalT that is located in the same position as
+               this CapitalT with the same colors for the rectangles.
+        Side effects:
+          -- None
+
+        Example:
+            window = rg.RoseWindow()
+            t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
+            t1.set_color('red', 'blue')
+            t2 = t1.clone() # t2 is at the same location WITH THE SAME COLORS
+
+        Type hints:
+          :rtype: CapitalT
+        """
+        # --------------------------------------------------------------
+        # TODO: 7.
+        #   READ the above specification, including the Example.
+        #   Implement and test this method by uncommenting the appropriate
+        #     run_test method in main. Compare the graphics window to
+        #     clone.pdf.
+        # --------------------------------------------------------------
+        cloned_t = CapitalT(self.h_rect.get_center(), self.h_rect.get_width(),
+                            self.v_rect.get_height(), self.v_rect.get_width())
+        cloned_t.set_colors(self.h_rect.fill_color, self.h_rect.outline_color)
+        return cloned_t
 
 
 # ----------------------------------------------------------------------
